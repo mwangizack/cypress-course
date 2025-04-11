@@ -38,4 +38,41 @@ describe("examples test", () => {
       );
     });
   });
+
+  it.only("Adds and removes grudges", () => {
+    cy.contains(/Add Some Grudges/i);
+
+    cy.getDataTest("grudge-list").within(() => {
+      cy.get("li").should("have.length", 0);
+    });
+
+    cy.getDataTest("grudge-input").type("some grudge");
+    cy.getDataTest("add-grudge-button").click();
+    cy.getDataTest("grudge-list").within(() => {
+      cy.get("li").should("have.length", 1);
+    });
+
+    cy.getDataTest("grudge-input").type("another grudge");
+    cy.getDataTest("add-grudge-button").click();
+    cy.getDataTest("grudge-list").within(() => {
+      cy.get("li").should("have.length", 2);
+    });
+
+    cy.getDataTest("grudge-list").within(() => {
+      cy.get("li").its(0).should("contain.text", "some grudge");
+      cy.get("li").its(1).should("contain.text", "another grudge");
+    });
+
+    cy.getDataTest("grudge-list").within(() => {
+      cy.get("li")
+        .its(0)
+        .within(() => {
+          cy.get("button").click();
+        });
+      cy.contains(/some grudge/i).should("not.exist");
+    });
+
+    cy.getDataTest("clear-button").click();
+    cy.contains(/another grudge/i).should("not.exist");
+  });
 });
