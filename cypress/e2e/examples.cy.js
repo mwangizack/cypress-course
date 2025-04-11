@@ -9,22 +9,22 @@ describe("examples test", () => {
   });
 
   it("Multi-page testing", () => {
-    cy.get("[data-test=nav-why-cypress]").click();
+    cy.getDataTest("nav-why-cypress").click();
     cy.location("pathname").should("equal", "/");
 
-    cy.get("[data-test=nav-fundamentals]").click();
+    cy.getDataTest("nav-fundamentals").click();
     cy.location("pathname").should("equal", "/fundamentals");
 
-    cy.get("[data-test=nav-forms]").click();
+    cy.getDataTest("nav-forms").click();
     cy.location("pathname").should("equal", "/forms");
 
-    cy.get("[data-test=nav-examples]").click();
+    cy.getDataTest("nav-examples").click();
     cy.location("pathname").should("equal", "/examples");
 
-    cy.get("[data-test=nav-component]").click();
+    cy.getDataTest("nav-component").click();
     cy.location("pathname").should("equal", "/component");
 
-    cy.get("[data-test=nav-best-practices]").click();
+    cy.getDataTest("nav-best-practices").click();
     cy.location("pathname").should("equal", "/best-practices");
   });
 });
